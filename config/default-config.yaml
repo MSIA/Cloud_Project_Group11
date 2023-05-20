@@ -1,0 +1,70 @@
+feature_engineer:
+  OneHotEncoding: 
+    - genre
+    - key
+    - time_signature
+    - mode
+  columns_to_drop:
+    - artist_name
+    - track_name
+    - track_id
+  log_transform:
+    log_duration: duration_ms
+    log_instrumentalness: instrumentalness
+    log_liviness: liveness
+    log_loudness: loudness
+    log_speechness: speechiness
+    log_tempo: tempo
+
+train_model:
+  target_column: popularity
+  train_test_split:
+    test_size: 0.2
+    random_state: 123
+  model:
+    random_forest:
+      n_estimators: 
+        - 100
+        # - 200
+      max_depth:
+        - 15
+        - 20 
+      max_features:
+      - 35
+    # neural_network:
+    #   hidden_layer_sizes:
+    #     - [50]
+    #     # - [100]
+    #     # - [50,50]
+    #   activation:
+    #     - relu
+    #     # - tanh
+    #   max_iter:
+    #     - 300
+    # XGboost:
+    #   n_estimators: 
+    #     - 100
+    #     # - 200
+    #   learning_rate:
+    #     - 0.1
+    #     # - 0.01
+    #   max_depth:
+    #   - 3
+    #   # - 5
+      
+score_model:
+  target_column : popularity
+
+evaluate_performance:
+  metrics: 
+    - R2
+    - MSE
+    - MAE
+
+
+
+
+
+  
+
+    
