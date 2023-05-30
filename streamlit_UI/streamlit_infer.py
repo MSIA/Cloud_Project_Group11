@@ -185,7 +185,12 @@ def main():
                                  list(available_models))
 
 
-    st.image("spotify_pic.png", use_column_width=True)
+    # Insert images in the Streamlit UI
+    col1, col2 = st.columns(2)
+    # Display the first image in the first column
+    col1.image("The_Trend.png", use_column_width=True)
+    # Display the second image in the second column
+    col2.image("spotify_pic.png", use_column_width=True)
 
 
     # location of the data and config file in S3 bucket
