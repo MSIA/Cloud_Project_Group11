@@ -142,12 +142,12 @@ The backbone of our application, the Data Layer, is responsible for all things d
         - Task definition: `group11-training-pipeline-sqs`
 + Amazon Lambda: We employ Lambda for handling our data preprocessing and feature engineering tasks. As serverless compute service, Lambda is excellent for handling event-driven processes, making it ideal for our use case.
 
-    1. `group11-Create_data`: It is a lambda function and trigger by S3 object create event of `msia423-group11-spotifty` bucket and then applied preprocessed data into the `msia423-group11-spotifty-ready-to-rain` bucket with two files:
+    1. **group11-Create_data**: It is a lambda function and trigger by S3 object create event of `msia423-group11-spotifty` bucket and then applied preprocessed data into the `msia423-group11-spotifty-ready-to-rain` bucket with two files:
 
         - cleaded_data.csv: Data after preprocessed
         - ready_data.csv: Data after feature Engineering such as OneHot Encoding, log transformation, and so on.
 + Amazon SQS:
 SQS (Simple Queue Service) is used as a message queue service to decouple and scale microservices, distributed systems, and serverless applications. SQS buffers requests, helping to smooth out any volatile workloads.
 
-    1. `group11-sqs`: It is linked with `msia423-group11-spotifty-ready-to-rain` bucket and `group11-train-pipe` ECS. It get messages from the bucket and then sent to the training pipeline, Which allows the batch training. 
+    1. **group11-sqs**: It is linked with `msia423-group11-spotifty-ready-to-rain` bucket and `group11-train-pipe` ECS. It get messages from the bucket and then sent to the training pipeline, Which allows the batch training. 
 
