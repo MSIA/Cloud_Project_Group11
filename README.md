@@ -130,12 +130,13 @@ The backbone of our application, the Data Layer, is responsible for all things d
 
 + Amazon ECS: Our application and machine learning model reside in ECS, where they are packaged into Docker containers. We utilize ECS for both the model training process and to host our Streamlit app.
 
-    1. **group11-prediction-pipe**: This is the ECS container for hoting the streamlit App. It get the model.pkl file from `msia423-group11-spotify-artifacts` and then push the app into http host. 
+    1. **group11-prediction-pipe**: This is the ECS cluster for holding the streamlit App. It get the model.pkl file from `msia423-group11-spotify-artifacts` and then push the app into http host. 
 
         - ECR: `group11-prediction-pipe-virginia`
+        - service name: spotify-app
         - Task definition: `group11-prediction-UI`
 
-    2. **group11-train-pipe**: This is the ECS container for training the model. It is triggered by SQS(`group11-sqs`) which get messages once the `msia423-group11-spotifty-ready-to-rain` get something new.
+    2. **group11-train-pipe**: This is the ECS cluster for training the model. It is triggered by SQS(`group11-sqs`) which get messages once the `msia423-group11-spotifty-ready-to-rain` get something new.
     It puts the trained model.pkl files and other artifacts into artifacts bucket. 
 
         - ECR: `group11-training-s`
