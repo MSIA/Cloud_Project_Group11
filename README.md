@@ -154,6 +154,53 @@ SQS (Simple Queue Service) is used as a message queue service to decouple and sc
 
 ## **Implementation**
 
+### **Deployment of user interface on AWS cloud**
+
+Assuming the user has aws CLI installed. 
+1. **If the user has not configured an aws profile yet, use the following command line to do so**
+
+```bash
+aws configure sso --profile <name-your-profile>
+```
+
+
+2. **Log in to refresh aws credential and use the second ```sts``` command line to verify the identity.** 
+
+```bash
+aws sso login --profile <your-profile-name>
+```
+
+```bash
+aws sts get-caller-identity --profile <your-profile-name>
+```
+
+3. **Export your profile**
+```bash
+export AWS_PROFILE=<your-profile-name>
+```
+
+4. **Log into the ECR to push the streamlit docker image**
+```bash 
+aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/f7r1g2f1
+```
+
+5. **Build your Docker image using the following command**
+```bash
+docker build -t group11-prediction-pipe-virginia .
+```
+
+6. **After the build completes, tag your image so you can push the image to this repository**
+
+```bash
+docker tag group11-prediction-pipe-virginia:latest public.ecr.aws/f7r1g2f1/group11-prediction-pipe-virginia:latest
+```
+
+7. **Run the following command to push this image to your newly created AWS repository**
+
+```bash
+docker push public.ecr.aws/f7r1g2f1/group11-prediction-pipe-virginia:latest
+```
+
 **Access Our Streamlit User Interface on AWS**
 ------------------
 0. **Connect to Northwestern University VPN**
@@ -163,6 +210,8 @@ SQS (Simple Queue Service) is used as a message queue service to decouple and sc
 ![sart spotify-app service](update_spotify-app_service.png)
 4. **Once start the spotify-app, click web link under `Networking` section of spotify-app**
 ![launch the user interface](launch_UI.png)
+
+
 
 **Access Our training Pipeline**
 ------------------
@@ -192,3 +241,10 @@ SQS (Simple Queue Service) is used as a message queue service to decouple and sc
     - choose our task definition of revision 3 and submit
 
     The training process should begin. 
+
+**Run lambda function**:
+- upload new raw data into our s3 bucket `MSiA423-group11-spotify`, and out lambda will be triggered by this event
+
+- go to aws concole lambda, click our lambda function `group11-create_data`
+![lambda](lambda.png)
+conclick test in this page cuz we have already written a test config.
