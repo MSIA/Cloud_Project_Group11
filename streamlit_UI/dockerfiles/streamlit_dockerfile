@@ -14,7 +14,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy the Streamlit application files to the working directory
-COPY streamlit_UI .
+COPY src .
 COPY config/logging .
 # Expose port 80 for http traffic
 EXPOSE 80

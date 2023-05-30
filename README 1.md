@@ -92,14 +92,14 @@ Let's get your system ready to run ChartBuster:
 
 
 
-**Access Our Streamlit User Interface on AWS**
+Access Our Streamlit User Interface on AWS
 ------------------
 0. **Connect to Northwestern University VPN**
 1. **Log in your MSiA AWS Account and navigate to ECS**
 2. **Click into 'group11-prediction-pipe' cluster under the ECS service**
-3. **Go into the 'spotify-app' service in the cluster and click 'update service' to change number of desired task from 0 to 1**
+3. ** Go into the 'spotify-app' service in the cluster and click 'update service' to change number of desired task from 0 to 1**
 ![sart spotify-app service](update_spotify-app_service.png)
-4. **Once start the spotify-app, click web link under `Networking` section of spotify-app**
+4. ** Once start the spotify-app, click web link under `Networking` section of spotify-app**
 ![launch the user interface](launch_UI.png)
 
 ## **App Features**
