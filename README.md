@@ -6,7 +6,7 @@ ChartBuster: Your Crystal Ball for Predicting Billboard Hits!
 
 1. [Project Overview](#project-overview)
 2. [Files Structure](#files-structure)
-3. [Installation & Setup](#installation-setup)
+3. [Installation & Setup]()
 4. [App Features](#app-features)
 5. [App Architecture](#app-architecture)
 6. [AWS Architecture](#aws-archetecture)
@@ -101,6 +101,12 @@ Let's get your system ready to run ChartBuster:
 ![sart spotify-app service](update_spotify-app_service.png)
 4. **Once start the spotify-app, click web link under `Networking` section of spotify-app**
 ![launch the user interface](launch_UI.png)
+
+**Access Our training Pipeline**
+------------------
+1. Locally:`bash `
+3. 
+
 
 ## **App Features**
 ![ui](UI.png)
