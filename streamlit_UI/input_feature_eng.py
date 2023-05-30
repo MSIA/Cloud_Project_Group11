@@ -1,6 +1,10 @@
+"""
+This module is build for OneHot Encoding users' input 
+"""
+# pylint: disable=invalid-name
+import logging
 import numpy as np
 import pandas as pd
-import logging
 
 
 logger = logging.getLogger("streamlit-feature-engineer")
@@ -40,7 +44,8 @@ def oneHot_input(input_df,colname) -> pd.DataFrame:
 
 def input_feature_eng(df: pd.DataFrame, config: dict) -> pd.DataFrame:
     """
-    Implement feature engineering for model training, including one-hot encoding, dropping columns, and log transformation
+    Implement feature engineering for model training, 
+    including one-hot encoding, dropping columns, and log transformation
 
     Args:
     - df (pd.DataFrame): Input data as a pandas DataFrame
@@ -63,16 +68,16 @@ def input_feature_eng(df: pd.DataFrame, config: dict) -> pd.DataFrame:
     if "log_transform" in config:
         for out_col, in_col in config["log_transform"].items():
             df[out_col] = df[in_col].apply(lambda x: x+200).apply(np.log)
-            logger.debug(("The column %s is successfully logged, and a new column %s is generated"% (in_col, out_col)))
+            logger.debug(("The column %s is successfully logged, \
+                          and a new column %s is generated", (in_col, out_col)))
             df.drop(in_col, axis = 1, inplace=True)
-            assert(in_col not in list(df.columns))
             logger.debug("The original %s column is successfully dropped", in_col)
-                   
+
     # drop any rows with missing values
     df.dropna(inplace=True)
     logger.info("Feature engineering finished")
 
-    # reorder the columns so that it matches with 
+    # reorder the columns so that it matches with
     # Desired order of columns
     desired_order = ['A Capella', 'Alternative', 'Anime', 'Blues', 'Children’s Music',
        'Classical', 'Comedy', 'Country', 'Dance', 'Electronic', 'Folk',
@@ -85,5 +90,5 @@ def input_feature_eng(df: pd.DataFrame, config: dict) -> pd.DataFrame:
 
     # Reorder the columns
     reordered_data = df.reindex(columns=desired_order)
-        
+
     return reordered_data
