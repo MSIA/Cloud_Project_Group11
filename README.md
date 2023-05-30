@@ -6,10 +6,11 @@ ChartBuster: Your Crystal Ball for Predicting Billboard Hits!
 
 1. [Project Overview](#project-overview)
 2. [Files Structure](#files-structure)
-3. [Installation & Setup]()
+3. [Installation & Setup](#installation--setup)
 4. [App Features](#app-features)
 5. [App Architecture](#app-architecture)
 6. [AWS Architecture](#aws-archetecture)
+7. [Implementation](#implementation)
 
 Authors: Vivi Wang, Hanwei Hu, Anthony Yang, Robert Chen
 ## **Project Overview**
@@ -90,24 +91,6 @@ Let's get your system ready to run ChartBuster:
     ```
 3. **Install the Required Packages**: We've made this step easy for you. All the required packages are listed in the `requirements.txt` file. All you need to do is run `pip install -r requirements.txt`, and Python will handle the rest!
 
-
-
-**Access Our Streamlit User Interface on AWS**
-------------------
-0. **Connect to Northwestern University VPN**
-1. **Log in your MSiA AWS Account and navigate to ECS**
-2. **Click into 'group11-prediction-pipe' cluster under the ECS service**
-3. **Go into the 'spotify-app' service in the cluster and click 'update service' to change number of desired task from 0 to 1**
-![sart spotify-app service](update_spotify-app_service.png)
-4. **Once start the spotify-app, click web link under `Networking` section of spotify-app**
-![launch the user interface](launch_UI.png)
-
-**Access Our training Pipeline**
-------------------
-1. Locally:`bash `
-3. 
-
-
 ## **App Features**
 ![ui](UI.png)
 
@@ -169,3 +152,43 @@ SQS (Simple Queue Service) is used as a message queue service to decouple and sc
 
     1. **group11-sqs**: It is linked with `msia423-group11-spotifty-ready-to-rain` bucket and `group11-train-pipe` ECS. It get messages from the bucket and then sent to the training pipeline, Which allows the batch training. 
 
+## **Implementation**
+
+**Access Our Streamlit User Interface on AWS**
+------------------
+0. **Connect to Northwestern University VPN**
+1. **Log in your MSiA AWS Account and navigate to ECS**
+2. **Click into 'group11-prediction-pipe' cluster under the ECS service**
+3. **Go into the 'spotify-app' service in the cluster and click 'update service' to change number of desired task from 0 to 1**
+![sart spotify-app service](update_spotify-app_service.png)
+4. **Once start the spotify-app, click web link under `Networking` section of spotify-app**
+![launch the user interface](launch_UI.png)
+
+**Access Our training Pipeline**
+------------------
+1. Locally:
+    ```bash
+        python pipeline/main.py  sqs_url
+    ````
+    where sqs url is the url of AWS SQS servise which linked between the S3 bucket `MSiA423-Group11-spotify` 
+2. Docker
+
+    - without ECR:
+    ```bash
+    docker build -t <image_name> -f dockerfiles/pipeline_dockerfile .
+    ```
+    ```bash
+    docker run --platform=linux/x86_64 -v ~/.aws:/root/.aws group11-training-s python main.py <sqs_url>
+    ```
+    - with ECR
+    ```
+    docker run --platform=linux/x86_64 -v ~/.aws:/root/.aws public.ecr.aws/f7r1g2f1/group11-training-s:latest  python main.py <sqs_url>
+    ```
+3. AWS console:
+    - Go to the ECS concole, and get into out ECS
+    ![task](task.png)
+    - run new task
+    ![demplot](demploy.png)
+    - choose our task definition of revision 3 and submit
+
+    The training process should begin. 
