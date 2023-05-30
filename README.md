@@ -31,9 +31,9 @@ This directory is dedicated to everything related to the training of our machine
     
 2. `src/evaluate_performance.py`: This script is responsible for assessing the performance of the trained model using various evaluation metrics.
     
-3. `src/score_model.py`: This script is responsible for assessing the performance of the trained model using various scores metrics.
+3. `src/score_model.py`: This script is responsible for generate predictions on the test set and store the result into a csv file.
 
-4. `src/aws_utils.py`: This script is responsible for enabling the AWS service with python. 
+4. `src/aws_utils.py`: This script is responsible for enabling the AWS service with python, such as getting message from SQS and uploading artifacts to a S3 bucket. 
     
 5. `main.py`: This script is the main script for running the training pipeline. 
 
@@ -46,7 +46,7 @@ The Streamlit directory contains all the components required for the user interf
     
 2. `input_feature_eng.py`: This script contains feature engineering utility functions that transform user input into what the model can recognize.
     
-3. `model.pkl`: This is the trained machine learning model that is imported by `app.py` for making predictions.
+3. Other png files are used for decorating the user webpage. 
 
 
 ## **Installation & Setup**
